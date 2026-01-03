@@ -21,6 +21,9 @@
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+
+
   <style>
     * {
       margin: 0;
@@ -39,8 +42,8 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
       background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.04), rgba(15, 23, 42, 0.85));
       border: 1px solid rgba(148, 163, 184, 0.25);
       box-shadow: 0 24px 60px rgba(15, 23, 42, 0.8);
-          position: relative;
-          overflow: hidden;
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
       transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
     }
 
@@ -48,17 +51,6 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
       transform: translateY(-10px) translateZ(0);
       box-shadow: 0 30px 70px rgba(168, 85, 247, 0.45);
       border-color: rgba(216, 180, 254, 0.7);
-    }
-
-    /* Hero card video - Sharp image */
-    .glass-card video {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      image-rendering: crisp-edges;
-      backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
     }
 
     .gradient-text {
@@ -122,7 +114,6 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
     /* Floating avatar */
     .float-animation {
       animation: float 6s ease-in-out infinite;
-          will-change: transform;
     }
 
     @keyframes float {
@@ -407,15 +398,15 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
       <div class="relative z-10 flex justify-center">
         <div class="glass-card rounded-3xl p-6 md:p-7 w-full max-w-sm md:max-w-md float-animation">
           <div class="relative">
-            <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-purple-500/30 via-transparent to-sky-500/20  -z-10"></div>
-            <video
-  src="profilephoto.webm"
-  autoplay
+            <div class="absolute inset-0 rounded-3xl bg-gradient-to-tr from-purple-500/30 via-transparent to-sky-500/20 blur-3xl -z-10"></div>
+           <lottie-player
+  src="Login.json"
+  background="transparent"
+  speed="1"
   loop
-  muted
-  playsinline
-  class="rounded-3xl border border-purple-400/70 w-full object-cover"
-></video>
+  autoplay
+  class="w-full max-w-md rounded-3xl border border-purple-400/70"
+></lottie-player>
 
           </div>
           <div class="mt-4 space-y-3 text-sm">
