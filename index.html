@@ -307,6 +307,69 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
       filter: saturate(1.2);
     }
 
+    /* Mobile menu animations */
+    .menu-icon {
+      width: 28px;
+      height: 24px;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-icon span {
+      width: 100%;
+      height: 3px;
+      background: #e2e8f0;
+      border-radius: 3px;
+      transition: all 0.3s ease;
+      display: block;
+    }
+
+    .menu-icon.active span:nth-child(1) {
+      transform: rotate(45deg) translate(8px, 8px);
+    }
+
+    .menu-icon.active span:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    .menu-icon.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(8px, -8px);
+    }
+
+    /* Mobile menu slide animation */
+    .mobile-menu {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, opacity 0.3s ease;
+      opacity: 0;
+    }
+
+    .mobile-menu.active {
+      max-height: 500px;
+      opacity: 1;
+    }
+
+    /* Mobile menu backdrop */
+    .menu-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 40;
+    }
+
+    .menu-backdrop.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
     /* Mobile tweaks */
     @media (max-width: 768px) {
       .cursor,
@@ -334,6 +397,9 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
   <div class="cursor hidden md:block"></div>
   <div class="cursor-follower hidden md:block"></div>
 
+  <!-- Mobile menu backdrop -->
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+
   <!-- Navbar -->
   <nav class="nav-blur fixed top-0 w-full z-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
@@ -358,20 +424,24 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
           </a>
         </div>
 
-        <button id="menuBtn" class="lg:hidden text-slate-200">
-          <i class="fa-solid fa-bars text-2xl"></i>
+        <button id="menuBtn" class="lg:hidden text-slate-200 relative z-50">
+          <div class="menu-icon" id="menuIcon">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div>
         </button>
       </div>
 
-      <div id="mobileMenu" class="lg:hidden hidden pt-4 pb-3 space-y-2 text-sm">
-        <a href="#home" class="block py-1 text-slate-200 hover:text-purple-400">HOME</a>
-        <a href="#about" class="block py-1 text-slate-200 hover:text-purple-400">ABOUT</a>
-        <a href="#experience" class="block py-1 text-slate-200 hover:text-purple-400">EXPERIENCE</a>
-        <a href="#skills" class="block py-1 text-slate-200 hover:text-purple-400">SKILLS</a>
-        <a href="#projects" class="block py-1 text-slate-200 hover:text-purple-400">PROJECTS</a>
-        <a href="#blog" class="block py-1 text-slate-200 hover:text-purple-400">BLOG</a>
-        <a href="#testimonials" class="block py-1 text-slate-200 hover:text-purple-400">TESTIMONIALS</a>
-        <a href="#contact" class="block py-2 text-slate-900 bg-purple-400 rounded-lg text-center font-semibold">CONTACT</a>
+      <div id="mobileMenu" class="mobile-menu lg:hidden pt-4 pb-3 space-y-2 text-sm">
+        <a href="#home" class="block py-2.5 px-4 text-slate-200 hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-all">HOME</a>
+        <a href="#about" class="block py-2.5 px-4 text-slate-200 hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-all">ABOUT</a>
+        <a href="#experience" class="block py-2.5 px-4 text-slate-200 hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-all">EXPERIENCE</a>
+        <a href="#skills" class="block py-2.5 px-4 text-slate-200 hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-all">SKILLS</a>
+        <a href="#projects" class="block py-2.5 px-4 text-slate-200 hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-all">PROJECTS</a>
+        <a href="#blog" class="block py-2.5 px-4 text-slate-200 hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-all">BLOG</a>
+        <a href="#testimonials" class="block py-2.5 px-4 text-slate-200 hover:text-purple-400 hover:bg-purple-500/10 rounded-lg transition-all">TESTIMONIALS</a>
+        <a href="#contact" class="block py-2.5 mt-2 text-slate-900 bg-gradient-to-r from-purple-400 to-purple-500 rounded-lg text-center font-semibold hover:from-purple-500 hover:to-purple-600 transition-all">CONTACT</a>
       </div>
     </div>
   </nav>
@@ -1469,8 +1539,44 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
     // Mobile menu
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
+    const menuIcon = document.getElementById('menuIcon');
+    const menuBackdrop = document.getElementById('menuBackdrop');
+    const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+    // Toggle menu function
+    function toggleMenu() {
+      mobileMenu.classList.toggle('active');
+      menuIcon.classList.toggle('active');
+      menuBackdrop.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    }
+
+    // Close menu function
+    function closeMenu() {
+      mobileMenu.classList.remove('active');
+      menuIcon.classList.remove('active');
+      menuBackdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Menu button click
+    menuBtn.addEventListener('click', toggleMenu);
+
+    // Backdrop click to close
+    menuBackdrop.addEventListener('click', closeMenu);
+
+    // Close menu when clicking on a link
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        setTimeout(closeMenu, 300); // Small delay for smooth navigation
+      });
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+        closeMenu();
+      }
     });
 
     // Custom cursor
