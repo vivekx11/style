@@ -198,20 +198,62 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
       border-color: rgba(216, 180, 254, 0.85);
     }
 
-    /* Skill pill */
-    .skill-pill {
-      background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.16), rgba(15, 23, 42, 0.7));
-      border: 1px solid rgba(216, 180, 254, 0.35);
-      box-shadow: 0 16px 40px rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    /* Tech card with rotating border effect */
+    .tech-card {
+      position: relative;
+      background: radial-gradient(circle at top left, rgba(168, 85, 247, 0.06), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(148, 163, 184, 0.3);
+      box-shadow: 0 20px 50px rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease;
+      overflow: hidden;
     }
 
-    .skill-pill:hover {
-      transform: translateY(-6px) scale(1.03);
+    .tech-card::before {
+      content: '';
+      position: absolute;
+      inset: -30%;
+      background: conic-gradient(from 220deg, rgba(192, 132, 252, 0.0), rgba(192, 132, 252, 0.3), rgba(216, 180, 254, 0.0));
+      opacity: 0;
+      transform: rotate(0deg);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .tech-card:hover::before {
+      opacity: 0.8;
+      transform: rotate(22deg);
+    }
+
+    .tech-card:hover {
+      transform: translateY(-12px) translateZ(0);
+      box-shadow: 0 35px 80px rgba(168, 85, 247, 0.45);
       border-color: rgba(216, 180, 254, 0.85);
-      box-shadow: 0 20px 55px rgba(168, 85, 247, 0.65);
+    }
+
+    /* Icon glow */
+    .icon-glow {
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.4);
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .tech-card:hover .icon-glow {
+      box-shadow: 0 0 35px rgba(168, 85, 247, 0.7);
+      transform: scale(1.1);
+    }
+
+    /* Popular badge pulse */
+    @keyframes pulse-badge {
+      0%, 100% {
+        box-shadow: 0 0 15px rgba(234, 179, 8, 0.4);
+      }
+      50% {
+        box-shadow: 0 0 25px rgba(234, 179, 8, 0.7);
+      }
+    }
+
+    .popular-badge {
+      animation: pulse-badge 2s ease-in-out infinite;
     }
 
     /* Blog card */
@@ -378,9 +420,9 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
           </a>
           <a href="https://twitter.com/viveksawji" target="_blank" class="hover:text-purple-400">
             <i class="fab fa-twitter text-xl"></i>
-                            <a href="https://instagram.com/vivekx___" target="_blank" class="hover:text-purple-400">
-                                                <i class="fab fa-instagram text-xl"></i>
-                                              </a>
+          </a>
+          <a href="https://instagram.com/vivekx___" target="_blank" class="hover:text-purple-400">
+            <i class="fab fa-instagram text-xl"></i>
           </a>
         </div>
 
@@ -432,7 +474,6 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
       </div>
     </div>
   </section>
-
   <div class="section-divider"></div>
 
   <!-- About -->
@@ -559,105 +600,490 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
 
   <div class="section-divider"></div>
 
-  <!-- Skills -->
+  <!-- Skills Section - UPDATED -->
   <section id="skills" class="py-20 px-4">
-    <div class="max-w-7xl mx-auto space-y-10">
-      <div class="text-center space-y-3">
-        <p class="section-label text-base md:text-lg font-semibold text-purple-300/80 tracking-[0.3em]">
-  SKILLS
-</p>
-<h2 class="text-2xl md:text-3xl xl:text-4xl font-black leading-tight">
-  Modern <span class="gradient-text">stack</span> &amp; tools
-</h2>
-
-
-        <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
-          A balanced mix of core programming languages, frontend frameworks, backend stacks and developer <span class="font-semibold">tooling</span>.
+    <div class="max-w-7xl mx-auto space-y-16">
+      
+      <!-- Header -->
+      <div class="text-center space-y-4">
+        <p class="section-label text-xs font-semibold text-purple-300/80 tracking-[0.35em]">
+          TECHNOLOGY STACK
+        </p>
+        <h1 class="text-4xl md:text-5xl xl:text-6xl font-black leading-tight">
+          <span class="block text-slate-100">MODERN</span>
+          <span class="block gradient-text">TECH STACK</span>
+        </h1>
+        <p class="text-base md:text-lg text-slate-300 max-w-2xl mx-auto">
+          Explore cutting-edge technologies powering the next generation of <span class="font-semibold">web development</span>
         </p>
       </div>
 
-      <div class="grid lg:grid-cols-3 gap-8">
-        <!-- Languages -->
-        <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-purple-300">Languages</h3>
-          <div class="grid grid-cols-3 gap-4">
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">🐍</span>
-              <p class="text-xs font-semibold text-slate-100">Python</p>
-            </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">☕</span>
-              <p class="text-xs font-semibold text-slate-100">Java</p>
-            </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">⚙️</span>
-              <p class="text-xs font-semibold text-slate-100">C++</p>
-            </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">🌐</span>
-              <p class="text-xs font-semibold text-slate-100">HTML</p>
-            </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">🎨</span>
-              <p class="text-xs font-semibold text-slate-100">CSS</p>
-            </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">📜</span>
-              <p class="text-xs font-semibold text-slate-100">JavaScript</p>
-            </div>
+      <!-- Featured Section -->
+      <section class="space-y-8">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="section-label text-base md:text-lg font-semibold text-purple-300/80 tracking-[0.3em]">
+              FEATURED
+            </p>
+            <h2 class="text-2xl md:text-3xl font-black mt-2">
+              Popular <span class="gradient-text">frameworks</span>
+            </h2>
           </div>
+          <span class="text-xs text-slate-400">5 technologies</span>
         </div>
 
-        <!-- Frameworks -->
-        <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-purple-300">Frameworks & Libraries</h3>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">⚛️</span>
-              <p class="text-xs font-semibold text-slate-100">React</p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Astro -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="absolute top-3 right-3">
+              <div class="popular-badge flex items-center gap-1 px-2.5 py-1 bg-yellow-500/20 border border-yellow-500/40 rounded-full">
+                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                <span class="text-xs text-yellow-400 font-semibold">Hot</span>
+              </div>
             </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">📗</span>
-              <p class="text-xs font-semibold text-slate-100">Node.js</p>
-            </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">🐘</span>
-              <p class="text-xs font-semibold text-slate-100">PHP</p>
-            </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">🗄️</span>
-              <p class="text-xs font-semibold text-slate-100">SQL</p>
-            </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">📱</span>
-              <p class="text-xs font-semibold text-slate-100">Kotlin</p>
+            
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-rocket text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Astro</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Framework</p>
+                <p class="text-sm text-slate-300">Fast, content-focused web framework for building modern sites</p>
+              </div>
             </div>
           </div>
+
+          <!-- SvelteKit -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="absolute top-3 right-3">
+              <div class="popular-badge flex items-center gap-1 px-2.5 py-1 bg-yellow-500/20 border border-yellow-500/40 rounded-full">
+                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                <span class="text-xs text-yellow-400 font-semibold">Hot</span>
+              </div>
+            </div>
+            
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-bolt text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">SvelteKit</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Framework</p>
+                <p class="text-sm text-slate-300">Reactive framework with blazing fast performance and minimal code</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Next.js -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="absolute top-3 right-3">
+              <div class="popular-badge flex items-center gap-1 px-2.5 py-1 bg-yellow-500/20 border border-yellow-500/40 rounded-full">
+                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                <span class="text-xs text-yellow-400 font-semibold">Hot</span>
+              </div>
+            </div>
+            
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-layer-group text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Next.js</h3>
+                <p class="text-xs text-purple-300/80 mb-2">React Framework</p>
+                <p class="text-sm text-slate-300">Production-ready React framework with hybrid rendering</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- TypeScript -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-code text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">TypeScript</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Language</p>
+                <p class="text-sm text-slate-300">JavaScript with syntax for types, bringing type safety to JS</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tailwind CSS -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-500 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-wind text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Tailwind CSS</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Styling</p>
+                <p class="text-sm text-slate-300">Utility-first CSS framework for rapid UI development</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Frontend Section -->
+      <section class="space-y-8">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="section-label text-base md:text-lg font-semibold text-purple-300/80 tracking-[0.3em]">
+              FRONTEND
+            </p>
+            <h2 class="text-2xl md:text-3xl font-black mt-2">
+              Client-side <span class="gradient-text">technologies</span>
+            </h2>
+          </div>
+          <span class="text-xs text-slate-400">8 technologies</span>
         </div>
 
-        <!-- Tools -->
-        <div class="space-y-4">
-          <h3 class="text-lg font-semibold text-purple-300">Tools & Platforms</h3>
-          <div class="grid grid-cols-2 gap-4">
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">💡</span>
-              <p class="text-xs font-semibold text-slate-100">IntelliJ</p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- React -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="absolute top-3 right-3">
+              <div class="popular-badge flex items-center gap-1 px-2.5 py-1 bg-yellow-500/20 border border-yellow-500/40 rounded-full">
+                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                <span class="text-xs text-yellow-400 font-semibold">Hot</span>
+              </div>
             </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">📝</span>
-              <p class="text-xs font-semibold text-slate-100">VS Code</p>
+            
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-react text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">React</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Library</p>
+                <p class="text-sm text-slate-300">Component-based UI library for building interfaces</p>
+              </div>
             </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">🐙</span>
-              <p class="text-xs font-semibold text-slate-100">GitHub</p>
+          </div>
+
+          <!-- Vue -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-vuejs text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Vue</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Framework</p>
+                <p class="text-sm text-slate-300">Progressive framework for building UIs</p>
+              </div>
             </div>
-            <div class="skill-pill flex flex-col items-center justify-center rounded-xl py-5">
-              <span class="text-3xl mb-1">🤖</span>
-              <p class="text-xs font-semibold text-slate-100">Android Studio</p>
+          </div>
+
+          <!-- Svelte -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-fire text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Svelte</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Framework</p>
+                <p class="text-sm text-slate-300">Compile-time framework with minimal runtime</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Angular -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-red-500 to-red-700 flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-angular text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Angular</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Framework</p>
+                <p class="text-sm text-slate-300">Enterprise-grade framework by Google</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Next.js -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-layer-group text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Next.js</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Framework</p>
+                <p class="text-sm text-slate-300">React framework for production</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- HTML -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-html5 text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">HTML</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Markup</p>
+                <p class="text-sm text-slate-300">Standard markup language for web</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- CSS -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-css3-alt text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">CSS</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Styling</p>
+                <p class="text-sm text-slate-300">Style sheet language for presentation</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- JavaScript -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-js-square text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">JavaScript</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Language</p>
+                <p class="text-sm text-slate-300">Programming language of the web</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- Backend & APIs Section -->
+      <section class="space-y-8">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="section-label text-base md:text-lg font-semibold text-purple-300/80 tracking-[0.3em]">
+              BACKEND & APIs
+            </p>
+            <h2 class="text-2xl md:text-3xl font-black mt-2">
+              Server-side <span class="gradient-text">power</span>
+            </h2>
+          </div>
+          <span class="text-xs text-slate-400">6 technologies</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Node.js -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="absolute top-3 right-3">
+              <div class="popular-badge flex items-center gap-1 px-2.5 py-1 bg-yellow-500/20 border border-yellow-500/40 rounded-full">
+                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                <span class="text-xs text-yellow-400 font-semibold">Hot</span>
+              </div>
+            </div>
+            
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-green-600 to-green-700 flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-node-js text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Node.js</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Runtime</p>
+                <p class="text-sm text-slate-300">JavaScript runtime built on Chrome's V8 engine</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Python -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-yellow-500 flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-python text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Python</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Language</p>
+                <p class="text-sm text-slate-300">High-level programming language for backends</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- FastAPI -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-teal-500 to-green-600 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-bolt text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">FastAPI</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Framework</p>
+                <p class="text-sm text-slate-300">Modern, fast Python web framework</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- NestJS -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-red-500 to-pink-600 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-server text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">NestJS</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Framework</p>
+                <p class="text-sm text-slate-300">Progressive Node.js framework for scalable apps</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- GraphQL -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-project-diagram text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">GraphQL</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Query Language</p>
+                <p class="text-sm text-slate-300">Query language for APIs with type system</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- MongoDB -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-green-700 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-database text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">MongoDB</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Database</p>
+                <p class="text-sm text-slate-300">Document-based NoSQL database</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <!-- AI & Dev Tools Section -->
+      <section class="space-y-8">
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="section-label text-base md:text-lg font-semibold text-purple-300/80 tracking-[0.3em]">
+              AI & DEV TOOLS
+            </p>
+            <h2 class="text-2xl md:text-3xl font-black mt-2">
+              Innovation <span class="gradient-text">ecosystem</span>
+            </h2>
+          </div>
+          <span class="text-xs text-slate-400">6 technologies</span>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Git -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="absolute top-3 right-3">
+              <div class="popular-badge flex items-center gap-1 px-2.5 py-1 bg-yellow-500/20 border border-yellow-500/40 rounded-full">
+                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                <span class="text-xs text-yellow-400 font-semibold">Hot</span>
+              </div>
+            </div>
+            
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-git-alt text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Git</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Version Control</p>
+                <p class="text-sm text-slate-300">Distributed version control system for tracking changes</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Docker -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center flex-shrink-0">
+                <i class="fab fa-docker text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Docker</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Containerization</p>
+                <p class="text-sm text-slate-300">Platform for developing, shipping, and running applications</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Vercel -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-black to-gray-800 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-cloud text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Vercel</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Deployment</p>
+                <p class="text-sm text-slate-300">Frontend cloud platform for static and Jamstack deployment</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Supabase -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-database text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Supabase</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Backend-as-a-Service</p>
+                <p class="text-sm text-slate-300">Open-source Firebase alternative with PostgreSQL</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Prisma -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-cogs text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">Prisma</h3>
+                <p class="text-xs text-purple-300/80 mb-2">ORM</p>
+                <p class="text-sm text-slate-300">Next-generation Node.js and TypeScript ORM</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ESLint -->
+          <div class="tech-card rounded-2xl p-6 relative">
+            <div class="relative z-10 flex items-start gap-4">
+              <div class="icon-glow w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center flex-shrink-0">
+                <i class="fas fa-bug text-white text-xl"></i>
+              </div>
+              <div class="flex-1 pt-1">
+                <h3 class="text-lg font-semibold text-slate-100 mb-1">ESLint</h3>
+                <p class="text-xs text-purple-300/80 mb-2">Linter</p>
+                <p class="text-sm text-slate-300">Pluggable JavaScript linter for code quality</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </div>
   </section>
 
@@ -840,7 +1266,7 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
       <div class="grid md:grid-cols-3 gap-6">
         <div class="testimonial-card rounded-2xl p-7">
           <p class="text-sm text-slate-200 mb-5">
-            “Vivek shipped a critical feature ahead of schedule with excellent attention to detail and <span class="font-semibold">testing</span>.”
+            "Vivek shipped a critical feature ahead of schedule with excellent attention to detail and <span class="font-semibold">testing</span>."
           </p>
           <div class="flex items-center gap-3">
             <img
@@ -857,7 +1283,7 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
 
         <div class="testimonial-card rounded-2xl p-7">
           <p class="text-sm text-slate-200 mb-5">
-            “He contributed clean, reusable components and proposed ideas that improved our web app’s <span class="font-semibold">UX</span>.”
+            "He contributed clean, reusable components and proposed ideas that improved our web app's <span class="font-semibold">UX</span>."
           </p>
           <div class="flex items-center gap-3">
             <img
@@ -874,7 +1300,7 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
 
         <div class="testimonial-card rounded-2xl p-7">
           <p class="text-sm text-slate-200 mb-5">
-            “Vivek’s full‑stack knowledge helped us scale the platform without sacrificing <span class="font-semibold">performance</span>.”
+            "Vivek's full‑stack knowledge helped us scale the platform without sacrificing <span class="font-semibold">performance</span>."
           </p>
           <div class="flex items-center gap-3">
             <img
@@ -902,7 +1328,7 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
           CONTACT
         </p>
         <h2 class="text-3xl md:text-4xl font-black">
-          Let’s build <span class="gradient-text">something</span> together
+          Let's build <span class="gradient-text">something</span> together
         </h2>
         <p class="text-sm md:text-base text-slate-400 max-w-xl mx-auto">
           Share a brief about your idea, timeline and tech preferences; a <span class="font-semibold">detailed</span> response follows shortly.
@@ -989,11 +1415,11 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
                   hover:border-purple-400 hover:text-purple-300 transition">
           <i class="fab fa-twitter text-sm"></i>
         </a>
-                        <a href="https://instagram.com/vivekx___" target="_blank"
-                                            class="w-9 h-9 rounded-full bg-slate-900/80 border border-slate-700 flex items-center justify-center
-                                            hover:border-purple-400 hover:text-purple-300 transition">
-                                            <i class="fab fa-instagram text-sm"></i>
-                                          </a>
+        <a href="https://instagram.com/vivekx___" target="_blank"
+           class="w-9 h-9 rounded-full bg-slate-900/80 border border-slate-700 flex items-center justify-center
+                  hover:border-purple-400 hover:text-purple-300 transition">
+          <i class="fab fa-instagram text-sm"></i>
+        </a>
       </div>
 
       <p>© 2025 Vivek Sawji. All rights reserved.</p>
@@ -1003,7 +1429,6 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
     </div>
   </div>
 </footer>
-
 
   <!-- Scripts -->
   <script>
@@ -1060,7 +1485,7 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
         mouseY = e.clientY;
       });
 
-      gsap.to({}, { // no target, just a ticker
+      gsap.to({}, {
         duration: 0.016,
         repeat: -1,
         onRepeat: () => {
@@ -1124,6 +1549,24 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
         }
       });
     });
+
+    // Animate tech cards on scroll
+    gsap.utils.toArray('.tech-card').forEach((card, i) => {
+      gsap.from(card, {
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        },
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+        delay: (i % 8) * 0.1
+      });
+    });
   </script>
 </body>
 </html>
+
+  
