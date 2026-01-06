@@ -1680,6 +1680,120 @@ background: radial-gradient(circle at top left, #020617 0, #020617 40%, #000 100
       });
     });
   </script>
+  <!-- ================= VISITOR TRACKING + ADMIN PANEL ================= -->
+<style>
+#adminPanel {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #0f172a;
+  color: #e5e7eb;
+  font-family: Arial, sans-serif;
+  padding: 30px;
+  overflow-y: auto;
+  z-index: 9999;
+}
+
+.card {
+  background: #020617;
+  padding: 20px;
+  border-radius: 14px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.4);
+  margin-bottom: 20px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+  gap: 20px;
+}
+
+h1 { margin-bottom: 20px; }
+.stat {
+  font-size: 32px;
+  font-weight: bold;
+  color: #38bdf8;
+}
+small { opacity: .7; }
+</style>
+
+<div id="adminPanel">
+  <h1>📊 Website Analytics (Admin)</h1>
+
+  <div class="grid">
+    <div class="card">
+      <small>Today</small>
+      <div class="stat" id="todayUsers">–</div>
+    </div>
+
+    <div class="card">
+      <small>Total Visits (This Browser)</small>
+      <div class="stat" id="totalUsers">0</div>
+    </div>
+
+    <div class="card">
+      <small>Device</small>
+      <div class="stat" id="deviceType">–</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <small>Last Visit</small>
+    <div id="lastVisit">–</div>
+  </div>
+</div>
+
+<script>
+(function () {
+
+  /* ---------- UNIQUE VISITOR ID ---------- */
+  let visitorId = localStorage.getItem("visitorId");
+  if (!visitorId) {
+    visitorId = "vid-" + Math.random().toString(36).substring(2, 12);
+    localStorage.setItem("visitorId", visitorId);
+  }
+
+  const today = new Date().toISOString().split("T")[0];
+
+  /* ---------- SEND DATA TO GOOGLE SHEET ---------- */
+  fetch("https://script.google.com/macros/s/AKfycbyMTP9THlRAL3OBbyKWNjAjuZZISBY5SoyPkrEYa3yDM_5rqGktfstudmAAsmdWjrKo/exec", {
+    method: "POST",
+    body: JSON.stringify({
+      page: window.location.pathname,
+      userAgent: navigator.userAgent,
+      visitorId: visitorId,
+      date: today
+    })
+  });
+
+  /* ---------- ADMIN PANEL (LOCAL UI) ---------- */
+  const params = new URLSearchParams(window.location.search);
+  if (!params.has("admin")) return;
+
+  document.getElementById("adminPanel").style.display = "block";
+
+  let localData = JSON.parse(localStorage.getItem("adminAnalytics")) || {
+    total: 0,
+    daily: {},
+    lastVisit: "-"
+  };
+
+  localData.total++;
+  localData.daily[today] = (localData.daily[today] || 0) + 1;
+  localData.lastVisit = new Date().toLocaleString();
+
+  localStorage.setItem("adminAnalytics", JSON.stringify(localData));
+
+  document.getElementById("todayUsers").innerText = localData.daily[today];
+  document.getElementById("totalUsers").innerText = localData.total;
+  document.getElementById("lastVisit").innerText = localData.lastVisit;
+  document.getElementById("deviceType").innerText =
+    /Mobi|Android/i.test(navigator.userAgent) ? "Mobile" : "Desktop";
+
+})();
+</script>
+<!-- ================= END ================= -->
+
 </body>
 </html>
 
